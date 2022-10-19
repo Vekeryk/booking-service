@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <div th:replace="fragments/imports :: imports"></div>
+    <meta charset="UTF-8">
+    <title>Додати готель</title>
+    <style>form span {
+        text-wrap: none;
+        color: red
+    }</style>
+</head>
+<body>
+<main class="m-3 w-25">
+    <h2>Додати готель</h2>
+    <form th:object="${hotel}" th:method="POST">
+        <div>
+            <label for="name" class="form-label">Назва</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name">
+        </div>
+        <div>
+            <label for="city" class="form-label">Місто</label>
+            <input type="text" th:field="*{city}" class="form-control" id="city">
+        </div>
+        <div>
+            <label for="address" class="form-label">Адреса</label>
+            <input type="text" th:field="*{address}" class="form-control" id="address">
+        </div>
+        <button type="submit" class="btn btn-primary">Додати готель</button>
+        <button type="reset" class="btn btn-light">Очистити</button>
+    </form>
+</main>
+</body>
+</html>
