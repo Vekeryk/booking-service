@@ -18,11 +18,10 @@ public class Room {
     private Long id;
 
     @Column(name = "number", nullable = false)
-    private String number;
+    private short number;
 
-    @Column(name = "available", nullable = false)
-    private boolean available;
-
+    @Column(name = "bed_amount", nullable = false)
+    private int bedAmount;
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
