@@ -96,6 +96,23 @@
     </dependencyManagement>
 
     <build>
-        <finalName>booking-service</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>9.4.0</version>
+                <configuration>
+                    <configFiles>
+                        <configFile>src/main/resources/flyway.conf</configFile>
+                    </configFiles>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
+
 </project>
