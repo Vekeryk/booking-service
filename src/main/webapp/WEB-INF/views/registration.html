@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <title>Registration</title>
+</head>
+<body>
+<div class="col-md-offset-2">
+  <h2>Registration</h2>
+</div>
+<form class="form-horizontal" th:action="@{/registration}" th:object="${user}" method="post">
+  <div>
+    <input type="submit" class="btn btn-info" value="Register"/>
+    <input type="reset" class="btn btn" value="Clear"/>
+  </div>
+</form>
+</body>
+</html>
