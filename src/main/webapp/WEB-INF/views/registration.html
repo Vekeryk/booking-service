@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <title>Registration</title>
+    <div th:replace="fragments/imports :: imports"></div>
+    <meta charset="UTF-8">
+    <title>Реєстрація</title>
+    <style>form span {
+        text-wrap: none;
+        color: red
+    }</style>
 </head>
 <body>
-<div class="col-md-offset-2">
-  <h2>Registration</h2>
-</div>
-<form class="form-horizontal" th:action="@{/registration}" th:object="${user}" method="post">
-  <div>
-    <input type="submit" class="btn btn-info" value="Register"/>
-    <input type="reset" class="btn btn" value="Clear"/>
-  </div>
-</form>
+<main class="m-3 w-25">
+    <h2>Реєстрація</h2>
+    <form th:object="${user}" th:action="@{/registration}" th:method="POST">
+        <div>
+            <label for="firstName" class="form-label">Ім'я</label>
+            <input type="text" th:field="*{firstName}" class="form-control" id="firstName">
+        </div>
+        <div>
+            <label for="lastName" class="form-label">Прізвище</label>
+            <input type="text" th:field="*{lastName}" class="form-control" id="lastName">
+        </div>
+        <div>
+            <label for="email" class="form-label">Електронна пошта</label>
+            <input type="email" th:field="*{email}" class="form-control" id="email">
+        </div>
+        <div class="mb-2">
+            <label for="password" class="form-label">Пароль</label>
+            <input type="password" th:field="*{password}" class="form-control" id="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Зареєструватись</button>
+        <button type="reset" class="btn btn-light">Очистити</button>
+    </form>
+</main>
 </body>
 </html>
