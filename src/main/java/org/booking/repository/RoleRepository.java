@@ -1,9 +1,9 @@
 package org.booking.repository;
 
-import org.booking.model.Booking;
+import org.booking.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BookingRepository extends JpaRepository<Booking, Long> {
+public interface RoleRepository  extends JpaRepository<Role, Long> {
 }
