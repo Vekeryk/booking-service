@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <div th:replace="fragments/css_imports"></div>
+    <title>Додати кімнату</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header"></div>
+    <main class="container m-3 d-flex justify-content-center flex-column align-items-center">
+        <h2>Додати кімнату</h2>
+        <form th:object="${room}" th:method="POST">
+            <div>
+                <label for="number" class="form-label">Номер</label>
+                <input type="number" min="100" max="9999" th:field="*{number}" class="form-control" id="number">
+            </div>
+            <div>
+                <label for="bedRooms" class="form-label">Кількість спальних місць</label>
+                <input type="number" min="1" max="10" th:field="*{bedAmount}" class="form-control" id="bedRooms">
+            </div>
+            <div class="mt-2 align-self-center">
+                <button type="submit" class="btn btn-primary">Додати кімнату</button>
+                <button type="reset" class="btn btn-light">Очистити</button>
+            </div>
+        </form>
+    </main>
+    <div th:replace="fragments/js_imports"></div>
+</div>
+</body>
+</html>

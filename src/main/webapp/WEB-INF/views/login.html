@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <div th:replace="fragments/imports :: imports"></div>
-    <meta charset="UTF-8">
+    <div th:replace="fragments/css_imports"></div>
     <title>Вхід</title>
 </head>
 <body>
-<main class="m-3 w-25">
-    <h2>Увійти</h2>
-    <div th:if="${param.error}" style="color: red">
-        <h4>Неправильне ім'я або пароль</h4>
-    </div>
-
-    <form th:object="${user}" th:action="@{/process-login}" th:method="POST">
-        <div>
-            <label for="email" class="form-label">Електронна пошта</label>
-            <input type="email" class="form-control" name="username" id="email" required>
+<div class="container">
+    <div th:replace="fragments/header"></div>
+    <main class="container m-3 d-flex justify-content-center flex-column align-items-center">
+        <h2>Увійти</h2>
+        <div th:if="${param.error}" style="color: red">
+            <h5>Неправильна пошта або пароль</h5>
         </div>
-        <div class="mb-2">
-            <label for="password" class="form-label">Пароль</label>
-            <input type="password" class="form-control" name="password" id="password">
+        <div class="w-25">
+            <form th:object="${user}" th:action="@{/process-login}" th:method="POST" class="d-flex flex-column">
+                <div>
+                    <label for="email" class="form-label">Електронна пошта</label>
+                    <input type="email" class="form-control" name="username" id="email" required>
+                </div>
+                <div class="mb-2">
+                    <label for="password" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" name="password" id="password" required>
+                </div>
+                <div>
+                    Не маєте акаунту? <a href="/registration">Зареєструйтеся!</a>
+                </div>
+                <div class="mt-2 align-self-center">
+                    <button type="submit" class="btn btn-primary">Увійти</button>
+                    <button type="reset" class="btn btn-light">Очистити</button>
+                </div>
+            </form>
         </div>
-        <div>
-            Не маєте акаунту? <a href="/registration">Зареєструйтеся!</a>
-        </div>
-        <button type="submit" class="btn btn-primary">Увійти</button>
-        <button type="reset" class="btn btn-light">Очистити</button>
-    </form>
-</main>
+    </main>
+    <div th:replace="fragments/js_imports"></div>
+</div>
 </body>
 </html>
