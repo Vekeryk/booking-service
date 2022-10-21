@@ -26,6 +26,6 @@ public class Hotel {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "hotel")
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private List<Room> rooms;
 }
