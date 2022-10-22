@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @Controller
 @RequestMapping("/hotels")
 @RequiredArgsConstructor
@@ -19,24 +17,20 @@ public class HotelController {
     private final HotelService hotelService;
 
     @GetMapping
-    public String allHotels(@RequestParam("page") Optional<Integer> page,
-                         @RequestParam("size") Optional<Integer> size,
-                         Model model) {
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(8);
-        PageRequest pageRequest = PageRequest.of(currentPage - 1, pageSize);
+    public String allHotels(@RequestParam(defaultValue = "1") Integer page,
+                            @RequestParam(defaultValue = "8") Integer size,
+                            Model model) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size);
         model.addAttribute("hotelPage", hotelService.getAllPaginated(pageRequest));
         return "hotels";
     }
 
     @GetMapping(params = {"search"})
     public String searchHotels(@RequestParam String search,
-                         @RequestParam("page") Optional<Integer> page,
-                         @RequestParam("size") Optional<Integer> size,
-                         Model model) {
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(8);
-        PageRequest pageRequest = PageRequest.of(currentPage - 1, pageSize);
+                               @RequestParam(defaultValue = "1") Integer page,
+                               @RequestParam(defaultValue = "8") Integer size,
+                               Model model) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size);
         model.addAttribute("hotelPage", hotelService.getByCitySearchPaginated(search, pageRequest));
         return "hotels";
     }

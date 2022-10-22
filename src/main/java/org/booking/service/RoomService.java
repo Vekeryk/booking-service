@@ -3,12 +3,13 @@ package org.booking.service;
 import lombok.RequiredArgsConstructor;
 import org.booking.model.Room;
 import org.booking.repository.RoomRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class RoomService {
         room.setHotel(hotelService.readById(hotelId));
 
         if (room.getHotel().getRooms().contains(room)) {
-            throw new IllegalArgumentException();// TODO: 2022-10-21  
+            throw new IllegalArgumentException(); // TODO: 2022-10-21
         }
         return roomRepository.save(room);
     }
@@ -36,13 +37,11 @@ public class RoomService {
         roomRepository.delete(readById(id));
     }
 
-    public List<Room> getAll() {
-        List<Room> rooms = roomRepository.findAll();
-        return rooms.isEmpty() ? new ArrayList<>() : rooms;
+    public Page<Room> getAllByHotelIdPaginated(long id, Pageable pageable) {
+        return roomRepository.getAllByHotelId(id, pageable);
     }
 
-    public List<Room> getAllByHotelId(long id) {
-        List<Room> rooms = roomRepository.getAllByHotelId(id);
-        return rooms.isEmpty() ? new ArrayList<>() : rooms;
+    public Page<Room> getAvailableRooms(long hotelId, LocalDate checkIn, LocalDate checkOut, Pageable pageable) {
+        return roomRepository.getAvailableRooms(hotelId, checkIn, checkOut, pageable);
     }
 }

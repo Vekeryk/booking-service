@@ -9,7 +9,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">На головну</a>
             </li>
-            <li sec:authorize="isAuthenticated()">
+            <li sec:authorize="isAuthenticated()" class="nav-item active">
                 <a class="nav-link" sec:authorize="hasAuthority('MANAGER')" th:href="@{/hotels}">Керувати готелями</a>
                 <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/my-bookings}">Мої бронювання</a>
             </li>
