@@ -12,15 +12,15 @@
         <form th:object="${hotel}" th:method="POST">
             <div>
                 <label for="name" class="form-label">Назва</label>
-                <input type="text" th:field="*{name}" class="form-control" id="name">
+                <input type="text" th:field="*{name}" class="form-control" id="name" required>
             </div>
             <div>
                 <label for="city" class="form-label">Місто</label>
-                <input type="text" th:field="*{city}" class="form-control" id="city">
+                <input type="text" th:field="*{city}" class="form-control" id="city" required>
             </div>
             <div>
                 <label for="address" class="form-label">Адреса</label>
-                <input type="text" th:field="*{address}" class="form-control" id="address">
+                <input type="text" th:field="*{address}" class="form-control" id="address" required>
             </div>
             <div class="mt-2 align-self-center">
                 <button type="submit" class="btn btn-primary">Додати готель</button>
