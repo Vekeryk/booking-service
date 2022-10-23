@@ -1,0 +1,12 @@
+<ul class="pagination" th:fragment="pagination(page)">
+  <th:block th:if="${page.totalPages > 0}"
+            th:each="number: ${#numbers.sequence(1, page.totalPages)}">
+
+    <li th:class="${number==page.number + 1} ? 'page-item active' : 'page-item'">
+      <a class="page-link"
+         th:text="${number}"
+         th:href="@{''(size=${page.size}, page=${number})}"
+      ></a>
+    </li>
+  </th:block>
+</ul>

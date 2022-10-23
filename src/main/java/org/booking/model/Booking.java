@@ -1,8 +1,6 @@
 package org.booking.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,6 +9,8 @@ import java.time.LocalDate;
 @Table(name = "bookings")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Booking {
     @Id
@@ -18,10 +18,10 @@ public class Booking {
     private Long id;
 
     @Column(name = "check_in", nullable = false)
-    private LocalDate checkInDate;
+    private LocalDate checkIn;
 
     @Column(name = "check_out", nullable = false)
-    private LocalDate checkOutDate;
+    private LocalDate checkOut;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
