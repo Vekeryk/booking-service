@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <div th:replace="fragments/css_imports"></div>
+    <title>Помилка</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header"></div>
+    <main class="container m-3 d-flex justify-content-center flex-column align-items-center">
+        <h2 th:text="${code}"></h2>
+        <h2 th:text="${message}">Додати кімнату</h2>
+    </main>
+    <div th:replace="fragments/js_imports"></div>
+</div>
+</body>
+</html>
