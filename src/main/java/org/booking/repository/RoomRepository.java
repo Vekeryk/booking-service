@@ -24,8 +24,18 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
                     "            and check_in < :check_out " +
                     "        ) occupied on id = occupied.room_id " +
                     "where hotel_id = :hotel_id " +
-                    "  and occupied.room_id is null",
-            countQuery = "select count(*) from rooms",
+                    "  and occupied.room_id is null " +
+                    "  and (:check_in < :check_out)",
+            countQuery = "select count(id) from rooms " +
+                    "    left join " +
+                    "        (select b.room_id " +
+                    "            from bookings b " +
+                    "            where check_out > :check_in " +
+                    "            and check_in < :check_out " +
+                    "        ) occupied on id = occupied.room_id " +
+                    "where hotel_id = :hotel_id " +
+                    "  and occupied.room_id is null" +
+                    "  and (:check_in < :check_out)",
             nativeQuery = true)
     Page<Room> getAvailableRooms(@Param("hotel_id") Long hotelId,
                                  @Param("check_in") LocalDate checkIn,
