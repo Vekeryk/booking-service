@@ -35,4 +35,8 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Booking> bookings;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }
