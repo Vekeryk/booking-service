@@ -15,7 +15,7 @@ import java.time.LocalDate;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("hotels/{hotel_id}/rooms")
+@RequestMapping("hotels/{hotelId}/rooms")
 public class RoomController {
 
     private final HotelService hotelService;
@@ -23,9 +23,9 @@ public class RoomController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('MANAGER')")
-    public String rooms(@PathVariable("hotel_id") Long hotelId,
+    public String rooms(@PathVariable Long hotelId,
                         @RequestParam(defaultValue = "1") Integer page,
-                        @RequestParam(defaultValue = "8") Integer size,
+                        @RequestParam(defaultValue = "6") Integer size,
                         Model model) {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         model.addAttribute("hotel", hotelService.readById(hotelId));
@@ -34,7 +34,7 @@ public class RoomController {
     }
 
     @GetMapping("/available-rooms")
-    public String searchAvailableRooms(@PathVariable("hotel_id") Long hotelId,
+    public String searchAvailableRooms(@PathVariable Long hotelId,
                                        Model model) {
         model.addAttribute("today", LocalDate.now());
         model.addAttribute("tomorrow", LocalDate.now().plusDays(1));
@@ -42,24 +42,24 @@ public class RoomController {
         return "available_rooms";
     }
 
-    @GetMapping(value = "/available-rooms", params = {"check_in", "check_out"})
+    @GetMapping(value = "/available-rooms", params = {"checkIn", "checkOut"})
     public String showAvailableRooms(@RequestParam(defaultValue = "1") Integer page,
-                                     @PathVariable("hotel_id") Long hotelId,
-                                     @RequestParam("check_in") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkIn,
-                                     @RequestParam("check_out") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOut,
+                                     @PathVariable Long hotelId,
+                                     @RequestParam("checkIn") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkIn,
+                                     @RequestParam("checkOut") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOut,
                                      Model model) {
         model.addAttribute("today", LocalDate.now());
-        model.addAttribute("check_in", checkIn);
-        model.addAttribute("check_out", checkOut);
+        model.addAttribute("checkIn", checkIn);
+        model.addAttribute("checkOut", checkOut);
         model.addAttribute("hotel", hotelService.readById(hotelId));
-        PageRequest pageRequest = PageRequest.of(page - 1, 8);
+        PageRequest pageRequest = PageRequest.of(page - 1, 6);
         model.addAttribute("roomPage", roomService.getAvailableRooms(hotelId, checkIn, checkOut, pageRequest));
         return "available_rooms";
     }
 
     @GetMapping("/add")
     @PreAuthorize("hasAuthority('MANAGER')")
-    public String addRoom(@PathVariable("hotel_id") Long hotelId,
+    public String addRoom(@PathVariable Long hotelId,
                           Model model) {
         model.addAttribute("hotelId", hotelId);
         model.addAttribute("room", new Room());
@@ -68,7 +68,7 @@ public class RoomController {
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('MANAGER')")
-    public String addRoom(@PathVariable("hotel_id") Long hotelId,
+    public String addRoom(@PathVariable Long hotelId,
                           @ModelAttribute Room room) {
         roomService.create(room, hotelId);
         return "redirect:/hotels/" + hotelId + "/rooms";
@@ -76,8 +76,8 @@ public class RoomController {
 
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('MANAGER')")
-    public String deleteRoom(@PathVariable("hotel_id") Long hotelId,
-                             @RequestParam("room_id") Long roomId) {
+    public String deleteRoom(@PathVariable Long hotelId,
+                             @RequestParam Long roomId) {
         roomService.delete(roomId);
         return "redirect:/hotels/" + hotelId + "/rooms";
     }

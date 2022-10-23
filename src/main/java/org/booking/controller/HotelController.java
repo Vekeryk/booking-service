@@ -18,7 +18,7 @@ public class HotelController {
 
     @GetMapping
     public String allHotels(@RequestParam(defaultValue = "1") Integer page,
-                            @RequestParam(defaultValue = "8") Integer size,
+                            @RequestParam(defaultValue = "6") Integer size,
                             Model model) {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         model.addAttribute("hotelPage", hotelService.getAllPaginated(pageRequest));
@@ -28,7 +28,7 @@ public class HotelController {
     @GetMapping(params = {"search"})
     public String searchHotels(@RequestParam String search,
                                @RequestParam(defaultValue = "1") Integer page,
-                               @RequestParam(defaultValue = "8") Integer size,
+                               @RequestParam(defaultValue = "6") Integer size,
                                Model model) {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         model.addAttribute("hotelPage", hotelService.getByCitySearchPaginated(search, pageRequest));

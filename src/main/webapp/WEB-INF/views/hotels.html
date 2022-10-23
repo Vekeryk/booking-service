@@ -7,12 +7,12 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header"></div>
-    <main class="container mt-3 d-flex justify-content-center flex-column align-items-center">
+    <main class="container mt-1 d-flex justify-content-center flex-column align-items-center">
         <h2>Список готелів</h2>
 
-        <div class="mt-3" sec:authorize="hasAuthority('MANAGER')">
+        <div sec:authorize="hasAuthority('MANAGER')">
             <a th:href="@{/hotels/add}">
-                <button type="button" class="btn btn-primary btn-lg">Додати готель</button>
+                <button type="button" class="btn btn-primary">Додати готель</button>
             </a>
         </div>
 
@@ -44,13 +44,13 @@
                 <td sec:authorize="hasAuthority('MANAGER')">
                     <a class="text-decoration-none"
                        th:href="@{|/hotels/${hotel.id}/rooms|}">
-                        <button type="button" class="btn btn-info">Кімнати</button>
+                        <button type="button" class="btn btn-info btn-sm">Кімнати</button>
                     </a>
                 </td>
                 <td sec:authorize="hasAuthority('MANAGER')">
                     <form th:action="@{/hotels/delete}" th:method="delete">
                         <input type="hidden" name="hotel_id" th:value="${hotel.id}">
-                        <button type="submit" class="btn btn-danger">Видалити</button>
+                        <button type="submit" class="btn btn-danger btn-sm">Видалити</button>
                     </form>
                 </td>
             </tr>
