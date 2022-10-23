@@ -25,7 +25,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/login", "/registration",
                         "/", "/home", "/hotels",
-                        "/hotels/{id}/available-rooms").permitAll()
+                        "/hotels/{id}/rooms/available-rooms").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
