@@ -5,8 +5,10 @@ import org.booking.model.Room;
 import org.booking.repository.RoomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
@@ -20,7 +22,7 @@ public class RoomService {
 
     public Room readById(long id) {
         return roomRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Room with id " + id + " not found"));
+                () -> new EntityNotFoundException("Кімнату з ідентифікатором " + id + " не знайдено"));
     }
 
     @Transactional
@@ -28,7 +30,7 @@ public class RoomService {
         room.setHotel(hotelService.readById(hotelId));
 
         if (room.getHotel().getRooms().contains(room)) {
-            throw new IllegalArgumentException(); // TODO: 2022-10-21
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Така кімната вже існує");
         }
         return roomRepository.save(room);
     }

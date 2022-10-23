@@ -17,7 +17,7 @@ public class HotelService {
 
     public Hotel readById(long id) {
         return hotelRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Hotel with id " + id + " not found"));
+                () -> new EntityNotFoundException("Готель з ідентифікатором " + id + " не знайдено"));
     }
 
     public Hotel create(Hotel hotel) {

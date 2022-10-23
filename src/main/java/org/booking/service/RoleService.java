@@ -15,6 +15,6 @@ public class RoleService {
 
     public Role readById(long id) {
         return roleRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Role with id " + id + " not found"));
+                () -> new EntityNotFoundException("Роль з ідентифікатором " + id + " не знайдено"));
     }
 }
