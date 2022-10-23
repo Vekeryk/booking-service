@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="fragments/css_imports"></div>
+    <title>Користувачі</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header"></div>
+    <main class="container m-2 d-flex justify-content-center flex-column align-items-center">
+        <h2>Користувачі</h2>
+
+        <form method="get" class="form-inline">
+            <input class="form-control mr-1" type="email" name="email" id="email" placeholder="Електронна пошта">
+            <button type="submit" class="btn btn-outline-primary ml-1">Знайти користувача</button>
+        </form>
+
+        <table class="table text-center table-hover mt-2">
+            <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Ім'я</th>
+                <th scope="col">Прізвище</th>
+                <th scope="col">Електронна пошта</th>
+                <th scope="col">Бронювання</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user, stats: ${userPage.content}">
+                <th class="fs-5 fw-normal" th:text="${stats.count}" scope="row"></th>
+                <td class="fs-5 fw-normal" th:text="${user.firstName}"></td>
+                <td class="fs-5 fw-normal" th:text="${user.lastName}"></td>
+                <td class="fs-5 fw-normal" th:text="${user.email}"></td>
+                <td>
+                    <a class="nav-link" th:href="@{|/users/${user.id}/booking|}">
+                        <button type="submit" class="btn btn-info btn-sm">Переглянути</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:replace="fragments/pagination :: pagination(${userPage})"></div>
+    </main>
+    <div th:replace="fragments/js_imports"></div>
+</div>
+</body>
+</html>
