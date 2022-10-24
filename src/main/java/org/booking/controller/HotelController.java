@@ -3,7 +3,8 @@ package org.booking.controller;
 import lombok.RequiredArgsConstructor;
 import org.booking.model.Hotel;
 import org.booking.service.HotelService;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,21 +18,17 @@ public class HotelController {
     private final HotelService hotelService;
 
     @GetMapping
-    public String allHotels(@RequestParam(defaultValue = "1") Integer page,
-                            @RequestParam(defaultValue = "6") Integer size,
+    public String allHotels(@PageableDefault(size = 6) Pageable pageable,
                             Model model) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size);
-        model.addAttribute("hotelPage", hotelService.getAllPaginated(pageRequest));
+        model.addAttribute("hotelPage", hotelService.getAllPaginated(pageable));
         return "hotels";
     }
 
     @GetMapping(params = {"search"})
     public String searchHotels(@RequestParam String search,
-                               @RequestParam(defaultValue = "1") Integer page,
-                               @RequestParam(defaultValue = "6") Integer size,
+                               @PageableDefault(size = 6) Pageable pageable,
                                Model model) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size);
-        model.addAttribute("hotelPage", hotelService.getByCitySearchPaginated(search, pageRequest));
+        model.addAttribute("hotelPage", hotelService.getByCitySearchPaginated(search, pageable));
         return "hotels";
     }
 

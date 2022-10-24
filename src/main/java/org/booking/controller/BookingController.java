@@ -6,7 +6,8 @@ import org.booking.security.UserDetailsImpl;
 import org.booking.service.BookingService;
 import org.booking.service.RoomService;
 import org.booking.service.UserService;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -28,15 +29,13 @@ public class BookingController {
     @GetMapping
     @PreAuthorize("hasAuthority('MANAGER') or #userId == principal.user.id")
     public String booking(@PathVariable Long userId,
-                          @RequestParam(defaultValue = "1") Integer page,
-                          @RequestParam(defaultValue = "8") Integer size,
+                          @PageableDefault(size = 6) Pageable pageable,
                           Authentication authentication,
                           Model model) {
         if (((UserDetailsImpl) authentication.getPrincipal()).getId() != userId) {
             model.addAttribute("user", userService.readById(userId));
         }
-        PageRequest pageRequest = PageRequest.of(page - 1, size);
-        model.addAttribute("bookingPage", bookingService.getAllCurrentByUserId(userId, pageRequest));
+        model.addAttribute("bookingPage", bookingService.getAllCurrentByUserId(userId, pageable));
         return "booking";
     }
 

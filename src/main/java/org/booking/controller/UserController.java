@@ -2,7 +2,8 @@ package org.booking.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.booking.service.UserService;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +20,9 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('MANAGER')")
-    public String users(@RequestParam(defaultValue = "1") Integer page,
-                        @RequestParam(defaultValue = "6") Integer size,
+    public String users(@PageableDefault(size = 6) Pageable pageable,
                         Model model) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size);
-        model.addAttribute("userPage", userService.getAllPaginated(pageRequest));
+        model.addAttribute("userPage", userService.getAllPaginated(pageable));
         return "users";
     }
 
