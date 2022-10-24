@@ -7,7 +7,6 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "rooms")
@@ -36,7 +35,7 @@ public class Room {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Room room = (Room) o;
-        return id != null && Objects.equals(id, room.id);
+        return number == room.number;
     }
 
     @Override
